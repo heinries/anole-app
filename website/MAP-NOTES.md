@@ -41,3 +41,11 @@ Preview: `python3 -m http.server 8000 --directory website`, then open http://loc
 `mobile.html?project=heat|maintenance|wildlife|accessibility` uses an allowlisted project choice. Missing or invalid choices display a project picker. Each valid phone page contains only that project’s sample pin.
 
 Example QR codes are encoded locally using the vendored MIT-licensed QR Code Generator by Kazuhiko Arase (`vendor/qrcode/`). The payload is the corresponding demo anchor’s absolute URL, resolved against the current host and path. No external QR service receives URLs. Localhost/file URLs cannot be reached from another device; use an already reachable host for scanning. No deployment was performed. QR links provide discoverability, not authentication.
+
+## Mobile map cards and HTTPS diagnosis
+
+Checked all four deployed `https://anole.duckdns.org/mobile.html?project=…` pages in Chrome at 390 px wide. The tile URL is HTTPS (`https://tile.openstreetmap.org/{z}/{x}/{y}.png`); requested tiles returned HTTP 200 and decoded successfully. No console, failed-network, mixed-content or zero-size map errors were observed. The reported blank basemap could not be reproduced on the live site in this check.
+
+The local update puts each mobile map in a white card, with a project-colour accent, header label, Reset control, rounded 240 px map and visible attribution. Tile errors or a 10-second loading timeout show a designed unavailable state and link to the observation below. Missing Leaflet also shows the fallback. Reset retries failed tiles; `invalidateSize` runs after layout and on nonzero container-size changes.
+
+Validation: all four edited pages loaded real tiles under the HTTPS origin using browser-only local asset overrides. No files were published. Simulated tile failures passed at 320, 390 and 1440 px; fallback text, observation links, attribution, reset recovery and missing-library behaviour passed. Real-map and fallback phone screenshots were visually inspected. The deployed site still needs the local changes applied in a separate deployment.

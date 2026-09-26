@@ -34,8 +34,8 @@
 <section class="wrap section capture-layout">
 <div class="capture-intro">
 <p class="eyebrow">CAPTURE / BROWSER PREVIEW</p>
-<h1 class="page-title">What caught<br>your eye?</h1>
-<p class="lead">A photo. A place. A little context.</p>
+<h1 id="capture-title" class="page-title">What caught<br>your eye?</h1>
+<p id="capture-description" class="lead">A photo. A place. A little context.</p>
 <p class="notice">
 <strong>Nothing is uploaded, saved or submitted.</strong> Your image and note stay in this page’s memory. Reloading clears the preview. No GPS is collected.</p>
 <img class="capture-anole" src="assets/anole.svg" alt="Bole, the curious brown anole">
@@ -68,6 +68,11 @@
 </textarea>
 <p class="small">Verification: unverified browser preview. This will not add a map pin.</p>
 <button class="button full" type="submit" disabled>Review local preview →</button>
+<aside id="maintenance-report" class="official-report" aria-label="Official city reporting" hidden>
+<a class="button" href="https://www.houstontx.gov/311/" target="_blank" rel="noopener noreferrer" aria-describedby="report-explanation report-external">Report this issue to Houston 311</a>
+<p id="report-external" class="small">External site · opens in a new tab</p>
+<p id="report-explanation">Houston 311 handles official city service requests. Opening 311 does not send your Anole capture or submit a report.</p>
+</aside>
 </form>
 <section id="capture-review" class="review" tabindex="-1" hidden>
 <p class="eyebrow">UNSAVED / UNVERIFIED</p>

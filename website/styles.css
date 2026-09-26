@@ -368,3 +368,88 @@ button:disabled{opacity:.6;cursor:not-allowed}
   .connected-steps .step { display: block; }
   .connected-steps .walk-icon { width: 90px; height: 90px; margin-bottom: 20px; }
 }
+
+/* Topic palettes are scoped to example experiences; site branding stays Anole green. */
+.topic-theme.heat {
+  --accent: #B84A3A;
+  --tint: #FFF4E8;
+  --topic-detail: #B84A3A;
+}
+.topic-theme.maintenance {
+  --accent: #52616B;
+  --tint: #F1F3F4;
+  --topic-detail: #52616B;
+}
+.topic-theme.wildlife {
+  --accent: #4F6B45;
+  --tint: #fffdf6;
+  --topic-detail: #795B43;
+}
+.topic-theme.accessibility {
+  --accent: #28638B;
+  --tint: #EAF4FA;
+  --topic-detail: #28638B;
+}
+.topic-theme.project-tile,
+.topic-theme.observation,
+.topic-theme .capture-panel { background: var(--tint); }
+.topic-theme.project-tile h2,
+.topic-theme.observation h3,
+.topic-theme .capture-intro h1,
+.topic-theme .review h2 { color: var(--accent); }
+.topic-theme .button { background: var(--accent); border-color: var(--accent); color: #fff; }
+.topic-theme .button:hover { box-shadow: inset 0 0 0 2px #fff; }
+.topic-theme .notice,
+.topic-theme .template-hint { background: var(--tint); border-left: 3px solid var(--topic-detail); }
+.topic-theme .capture-panel { border-top: 4px solid var(--topic-detail); }
+.topic-theme .project-symbol,
+.topic-theme.observation .number { background: var(--topic-detail); color: #fff; }
+.topic-theme.observation { border-left-color: var(--topic-detail); }
+.topic-theme .capture-intro > .eyebrow { color: var(--topic-detail); }
+.topic-theme .button:focus-visible,
+.topic-theme input:focus-visible,
+.topic-theme select:focus-visible,
+.topic-theme textarea:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
+.official-report { margin-top: 28px; padding-top: 22px; border-top: 1px solid var(--topic-detail); }
+.official-report .button { width: 100%; text-align: center; }
+.official-report p { font-size: 14px; margin-bottom: 0; }
+
+/* A neutral map frame shared by all four mobile project themes. */
+.project-map-card {
+  margin-top: 24px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid #dce1df;
+  border-top: 3px solid var(--accent, var(--green));
+  border-radius: 16px;
+  box-shadow: 0 3px 12px #26372f08;
+}
+.project-map-card .map-toolbar { margin: 0 0 12px; flex-wrap: wrap; }
+.project-map-card .map-toolbar .eyebrow { color: var(--ink); }
+.project-map-card .map-toolbar button { background: #fff; color: var(--ink); }
+.project-map-stage { position: relative; border-radius: 10px; overflow: hidden; }
+.phone-content .project-map-card .interactive-map { height: 240px; border-radius: 10px; border-color: #dce1df; }
+.project-map-card > .small { margin: 12px 0 0; }
+.project-map-stage:not([data-map-state="ready"]) .interactive-map { visibility: hidden; }
+.map-unavailable {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 18px 14px 8px;
+  background: #f7f8f7;
+  border: 1px solid #dce1df;
+  border-radius: 10px;
+  color: var(--ink);
+}
+.map-state-icon { display: block; font-size: 28px; line-height: 1; color: var(--accent, var(--green)); margin-bottom: 12px; }
+.map-unavailable p { font-size: 14px; margin-bottom: 4px; }
+.map-unavailable .text-link { font-size: 13px; }
+.map-unavailable .fallback-attribution { font-size: 10px; line-height: 1.4; margin: 8px 0 0; }
+@media (max-width: 370px) {
+  .project-map-card { padding: 12px; }
+  .project-map-card .map-toolbar .eyebrow { font-size: 8px; letter-spacing: .5px; }
+  .project-map-card .map-toolbar button { padding-inline: 10px; }
+}

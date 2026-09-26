@@ -4,43 +4,86 @@
   const container = document.querySelector('#observation-map');
   if (!container || container.closest("[hidden]")) return;
   const status = document.querySelector('#map-status');
+  const stage = container.closest('.project-map-stage');
+  const fallback = document.querySelector('#map-unavailable');
+  const fallbackMessage = document.querySelector('#map-unavailable-message');
+  let tileTimer;
+  let mapState = 'loading';
+  function showState(state) {
+    mapState = state;
+    if (stage) stage.dataset.mapState = state;
+    if (fallback) fallback.hidden = state === 'ready';
+    if (fallbackMessage) fallbackMessage.textContent = state === 'loading'
+      ? 'Loading the real basemap…'
+      : 'Map tiles are unavailable right now. Explore the demo observation below.';
+    if (state !== 'loading') window.clearTimeout(tileTimer);
+    status.textContent = state === 'ready'
+      ? 'Demo map ready. All visible pins are fictional and unverified.'
+      : state === 'loading'
+        ? 'Loading OpenStreetMap tiles. The demo observation is available below.'
+        : 'Basemap unavailable. The demo observation remains usable. Reset map to retry.';
+  }
+  function beginLoading() {
+    window.clearTimeout(tileTimer);
+    showState('loading');
+    // A stalled connection must not leave an apparently finished, empty map.
+    tileTimer = window.setTimeout(() => showState('unavailable'), 10000);
+  }
   if (!window.L) {
+    showState('unavailable');
     container.textContent = 'Map unavailable. Use the observation list below.';
-    status.textContent = 'The map library could not load. The list and category filters still work.';
+    status.textContent = 'The map library could not load. The observation list remains available.';
     return;
   }
   container.replaceChildren();
   const map = L.map(container, { scrollWheelZoom: false, fadeAnimation: false, zoomAnimation: false, minZoom: 10, maxZoom: 17 });
   const home = [29.757, -95.384];
   map.setView(home, 13);
-  // Normal browser requests retain provider caching and send the site Referer.
-  // No prefetch, offline download, geolocation or official facility layer.
+  // HTTPS tiles, normal browser caching and Referer; no prefetch or offline download.
   const tileUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
-  let tileFailed = false;
+  let tiles;
+  let batchFailed = false;
   if (location.protocol === 'http:' || location.protocol === 'https:') {
-    const tiles = L.tileLayer(tileUrl, {
+    tiles = L.tileLayer(tileUrl, {
       maxZoom: 19,
       keepBuffer: 0,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     });
+    tiles.on('loading', () => {
+      batchFailed = false;
+      beginLoading();
+    });
     tiles.on('tileerror', () => {
-      tileFailed = true;
-      status.textContent = 'Basemap tiles unavailable. Demo pins and the observation list remain usable; retry when connected.';
+      batchFailed = true;
+      showState('unavailable');
     });
-    tiles.on('load', () => {
-      if (!tileFailed) status.textContent = 'Demo map ready. All visible pins are fictional and unverified.';
-    });
+    tiles.on('load', () => showState(batchFailed ? 'unavailable' : 'ready'));
     tiles.addTo(map);
-    status.textContent = 'Loading basemap. Demo pins and list are ready.';
   } else {
-    status.textContent = 'Use a local HTTP server to load the basemap. Demo pins and the list remain available.';
+    showState('unavailable');
+    status.textContent = 'Open this page through an HTTP server to load the basemap. The demo observation is available below.';
+  }
+  // app.js reveals the selected project before this script runs. Recheck after
+  // layout and whenever its visible size changes (including device rotation).
+  requestAnimationFrame(() => map.invalidateSize({ pan: false }));
+  if (window.ResizeObserver) {
+    let previousSize = '';
+    const resizeObserver = new ResizeObserver(entries => {
+      const { width, height } = entries[0].contentRect;
+      const size = width + 'x' + height;
+      if (width && height && size !== previousSize) {
+        previousSize = size;
+        map.invalidateSize({ pan: false });
+      }
+    });
+    resizeObserver.observe(container);
   }
   const markers = [...document.querySelectorAll('.observation')].map(card => {
     const category = card.dataset.category;
     const number = card.querySelector('.number').textContent;
     const title = card.querySelector('h3').textContent;
     const icon = L.divIcon({
-      className: 'anole-map-marker ' + category,
+      className: 'anole-map-marker topic-theme ' + category,
       html: '<span>' + number + '</span>',
       iconSize: [44, 44], iconAnchor: [22, 22]
     });
@@ -81,5 +124,11 @@
   syncMarkers();
   const reset = document.querySelector('#reset-map');
   reset.disabled = false;
-  reset.addEventListener('click', () => { map.closePopup(); map.setView(home, 13); });
+  reset.addEventListener('click', () => {
+    const retry = mapState === 'unavailable';
+    map.closePopup();
+    map.invalidateSize({ pan: false });
+    map.setView(home, 13);
+    if (retry && tiles) tiles.redraw();
+  });
 })();

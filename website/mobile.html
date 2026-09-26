@@ -41,14 +41,26 @@
 <div id="mobile-project" hidden>
 <div class="notice">
 <strong>Fictional demo observations · unverified.</strong> Pins are arbitrary positions in Houston and do not describe the real places underneath. All sample dates are 24 September 2026. These are not verified resources or routes.</div>
+<section class="project-map-card" aria-label="Project demo map">
 <div class="map-toolbar">
 <span class="eyebrow">DEMO PINS / REAL BASEMAP</span>
 <button id="reset-map" disabled>Reset map</button>
 </div>
+<div class="project-map-stage" data-map-state="loading">
 <div id="observation-map" class="interactive-map" aria-label="Map of fictional observations">
 <p class="map-fallback">The map needs JavaScript. Sample details are linked below.</p>
 </div>
+<div id="map-unavailable" class="map-unavailable">
+<div>
+<span class="map-state-icon" aria-hidden="true">⌖</span>
+<p id="map-unavailable-message" role="status">Map tiles are unavailable right now. Explore the demo observation below.</p>
+<a class="text-link" href="#observations">Explore the demo observation ↓</a>
+</div>
+<p class="fallback-attribution"><a href="https://leafletjs.com/">Leaflet</a> | © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p>
+</div>
+</div>
 <p id="map-status" class="small" role="status">Basemap requires a network connection. No official records are imported.</p>
+</section>
 <a id="mobile-capture" class="button full" href="questionnaire.html">Preview an observation →</a>
 <div id="observations">
 </div>

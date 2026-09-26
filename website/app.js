@@ -10,7 +10,7 @@
  };
  function card(key, index) {
    const p = projects[key], a = document.createElement('a');
-   a.className = 'observation ' + key; a.dataset.category = key; a.dataset.lat = p.lat; a.dataset.lng = p.lng; a.href = 'place.html#' + key;
+   a.className = 'observation topic-theme ' + key; a.dataset.category = key; a.dataset.lat = p.lat; a.dataset.lng = p.lng; a.href = 'place.html#' + key;
    a.innerHTML = `<span class="number">${String(index + 1).padStart(2, '0')}</span><div><span class="eyebrow">${p.name} / FICTIONAL DEMO</span><h3>${p.title}</h3><p>${p.place} · fictional place</p><span class="condition">Fictional / unverified</span><p class="observation-meta">Source: Anole demo<br>Observation date (fictional): <time datetime="2026-09-24">24 September 2026</time><br>Verification: unverified</p><p class="follow-up">${p.detail}</p></div>`;
    return a;
  }
@@ -20,7 +20,7 @@
    document.querySelector('#project-picker').hidden = true;
    document.querySelector('#project-title').textContent = p.name;
    document.querySelector('#project-description').textContent = p.description;
-   document.querySelector('.phone-content').classList.add(choice);
+   document.querySelector('.phone-content').classList.add('topic-theme', choice);
    document.title = p.name + ' · Anole phone demo';
    document.querySelector('#mobile-capture').href = 'questionnaire.html?project=' + choice;
    guidance(document.querySelector('#project-guidance'), p);
@@ -41,7 +41,7 @@
    filter(location.hash.slice(1)); window.addEventListener('hashchange', () => filter(location.hash.slice(1)));
  }
  const details = document.querySelector('#sample-details');
- if (details) keys.forEach((key,i) => { const section = document.createElement('section'); section.id = key; section.className = 'sample-detail section'; section.append(card(key,i)); const note = document.createElement('p'); note.className = 'notice'; guidance(note,projects[key]); section.append(note); const a = document.createElement('a'); a.className = 'button'; a.href = 'questionnaire.html?project=' + key; a.textContent = 'Try this capture preview →'; section.append(a); details.append(section); });
+ if (details) keys.forEach((key,i) => { const section = document.createElement('section'); section.id = key; section.className = 'sample-detail section topic-theme ' + key; section.append(card(key,i)); const note = document.createElement('p'); note.className = 'notice'; guidance(note,projects[key]); section.append(note); const a = document.createElement('a'); a.className = 'button'; a.href = 'questionnaire.html?project=' + key; a.textContent = 'Try this capture preview →'; section.append(a); details.append(section); });
  document.querySelectorAll('.qr').forEach(host => {
    try {
      const link = host.closest('article').querySelector('.demo-link');
@@ -62,6 +62,16 @@
  const drafts = {};
  function template() {
    const p = projects[category.value];
+   const layout = document.querySelector('.capture-layout');
+   layout.classList.remove(...keys);
+   layout.classList.add('topic-theme', category.value);
+   document.querySelector('#capture-title').textContent = p.name;
+   document.querySelector('#capture-description').textContent = p.description;
+   document.title = p.name + ' · Capture preview · Anole';
+   document.querySelector('#maintenance-report').hidden = category.value !== 'maintenance';
+   const url = new URL(location.href);
+   url.searchParams.set('project', category.value);
+   history.replaceState(null, '', url);
    guidance(document.querySelector('#template-hint'), p);
    fields.replaceChildren();
    p.fields.forEach((label,i) => {
