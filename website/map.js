@@ -2,7 +2,7 @@
 (() => {
   'use strict';
   const container = document.querySelector('#observation-map');
-  if (!container) return;
+  if (!container || container.closest("[hidden]")) return;
   const status = document.querySelector('#map-status');
   if (!window.L) {
     container.textContent = 'Map unavailable. Use the observation list below.';
@@ -28,7 +28,7 @@
       status.textContent = 'Basemap tiles unavailable. Demo pins and the observation list remain usable; retry when connected.';
     });
     tiles.on('load', () => {
-      if (!tileFailed) status.textContent = 'Demo map ready. All four pins are fictional, not cooling centres.';
+      if (!tileFailed) status.textContent = 'Demo map ready. All visible pins are fictional and unverified.';
     });
     tiles.addTo(map);
     status.textContent = 'Loading basemap. Demo pins and list are ready.';

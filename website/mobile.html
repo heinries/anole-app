@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f4e9">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Phone demo · Anole</title>
+<link rel="icon" href="assets/anole.svg">
+<link rel="stylesheet" href="vendor/leaflet/leaflet.css">
+<script src="vendor/leaflet/leaflet.js" defer>
+</script>
+<link rel="stylesheet" href="styles.css">
+<script src="projects.js" defer>
+</script>
+<script src="vendor/qrcode/qrcode.js" defer>
+</script>
+<script src="app.js" defer>
+</script>
+<script src="map.js" defer>
+</script>
+</head>
+<body class="phone-page">
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+<a class="brand" href="index.html">
+<img src="assets/anole.svg" alt="" width="56" height="45">anole ▪</a>
+<a href="examples.html">← Example Pages</a>
+</header>
+<main id="main">
+<section class="wrap section phone-content">
+<p class="eyebrow">AN ANOLE PROJECT / PHONE DEMO</p>
+<h1 id="project-title" class="page-title">Choose a project</h1>
+<p id="project-description">Open one of the four projects from Example Pages to try its phone demo.</p>
+<div id="project-picker" class="filters">
+<a class="button" href="mobile.html?project=heat">Heat relief</a>
+<a class="button" href="mobile.html?project=maintenance">Municipal maintenance</a>
+<a class="button" href="mobile.html?project=wildlife">Wildlife sightings</a>
+<a class="button" href="mobile.html?project=accessibility">Accessibility</a>
+</div>
+<div id="mobile-project" hidden>
+<div class="notice">
+<strong>Fictional demo observations · unverified.</strong> Pins are arbitrary positions in Houston and do not describe the real places underneath. All sample dates are 24 September 2026. These are not verified resources or routes.</div>
+<div class="map-toolbar">
+<span class="eyebrow">DEMO PINS / REAL BASEMAP</span>
+<button id="reset-map" disabled>Reset map</button>
+</div>
+<div id="observation-map" class="interactive-map" aria-label="Map of fictional observations">
+<p class="map-fallback">The map needs JavaScript. Sample details are linked below.</p>
+</div>
+<p id="map-status" class="small" role="status">Basemap requires a network connection. No official records are imported.</p>
+<a id="mobile-capture" class="button full" href="questionnaire.html">Preview an observation →</a>
+<div id="observations">
+</div>
+<div id="project-guidance" class="notice">
+</div>
+</div>
+<a class="text-link" href="examples.html">← Back to Example Pages</a>
+</section>
+</main>
+<footer class="phone-footer">Anole · fictional demo · nothing saved</footer>
+</body>
+</html>

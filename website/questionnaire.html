@@ -1,87 +1,83 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-ZA">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f8f4e9">
-<meta name="description" content="Anole: a Houston community observation concept. Notice your neighbourhood.">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Capture preview · Anole</title>
-<link rel="icon" href="assets/anole.svg" type="image/svg+xml">
-<link rel="stylesheet" href="styles.css?v=place-types-1">
-<script src="app.js?v=ab4c16f" defer>
+<link rel="icon" href="assets/anole.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="projects.js" defer>
+</script>
+<script src="vendor/qrcode/qrcode.js" defer>
+</script>
+<script src="app.js" defer>
 </script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="header">
 <a class="brand" href="index.html">
-<img src="assets/anole.svg" alt="" width="56" height="45">anole<span class="brand-dot">▪</span>
-</a>
+<img src="assets/anole.svg" alt="" width="56" height="45">anole ▪</a>
 <nav aria-label="Main navigation">
 <a href="index.html">Home</a>
-<a href="explore.html">Explore</a>
+<a href="examples.html">Example Pages</a>
 <a href="questionnaire.html" aria-current="page">Capture</a>
+<a href="how-to.html">How to start</a>
+<a href="explore.html">Master Map</a>
 <a href="about.html">The idea</a>
 </nav>
-<span class="header-note">HOUSTON, TX / CONCEPT 2026</span>
 </header>
 <main id="main">
 <section class="wrap section capture-layout">
 <div class="capture-intro">
-<p class="eyebrow">CONCEPT PREVIEW / CAPTURE</p>
+<p class="eyebrow">CAPTURE / BROWSER PREVIEW</p>
 <h1 class="page-title">What caught<br>your eye?</h1>
 <p class="lead">A photo. A place. A little context.</p>
-<p>Imagine leaving a useful note for the next neighbour. Shared templates make different observations easier to understand.</p>
-<div class="notice">
-<strong>Try the preview.</strong> You can change fields and review your note on this page. Nothing is saved, uploaded or sent. Reloading clears your changes.</div>
-<img class="capture-anole" src="assets/anole.svg" alt="Anole’s long tail curls upward">
-<p class="small">Anole marks community curiosity, not an official warning or a verified city report.</p>
+<p class="notice">
+<strong>Nothing is uploaded, saved or submitted.</strong> Your image and note stay in this page’s memory. Reloading clears the preview. No GPS is collected.</p>
+<img class="capture-anole" src="assets/anole.svg" alt="Bole, the curious brown anole">
+<a id="capture-back" class="text-link" href="examples.html">← Example Pages</a>
 </div>
 <div class="capture-panel">
-<div class="panel-top">
-<strong>New observation</strong>
-<span class="badge">Concept preview</span>
-</div>
 <form id="capture-form">
-<div class="photo-placeholder">
-<span aria-hidden="true">▧</span>
-<strong>A photo would go here</strong>
-<small>Photo capture is illustrated only</small>
-</div>
-<label for="location">01 / Place</label>
-<input id="location" maxlength="120" value="Bayou path · fictional location">
-<p class="small">No GPS or pin placement in this preview.</p>
-<label for="category">02 / Observation template</label>
+<label for="category">Project</label>
 <select id="category">
-<option value="walkways">Accessible walkways &amp; facilities</option>
-<option value="lighting">Street lighting</option>
-<option value="preparedness">Emergency preparedness</option>
-<option value="spaces">Cleanups &amp; community spaces</option>
+<option value="heat">Heat relief</option>
+<option value="maintenance">Municipal maintenance</option>
+<option value="wildlife">Wildlife sightings</option>
+<option value="accessibility">Accessibility</option>
 </select>
-<p id="template-hint" class="template-hint">Template attributes: surface, obstacles, ramps, last checked.</p>
-<label for="condition">03 / Observed condition</label>
-<select id="condition">
-<option>Needs a closer look</option>
-<option>Attention needed</option>
-<option>Appears in good condition</option>
-<option>Not sure</option>
-</select>
-<label for="notes">04 / What did you notice?</label>
-<textarea id="notes" maxlength="600" rows="4" placeholder="Describe what you can observe. Leave out faces, names and private details.">
+<div id="template-hint" class="template-hint">
+</div>
+<label for="photo">Image file (optional, local preview only)</label>
+<input id="photo" type="file" accept="image/*">
+<p id="photo-status" class="small" role="status">No image selected or uploaded.</p>
+<img id="photo-preview" alt="Your selected image, shown locally" hidden>
+<button id="remove-photo" type="button" hidden>Remove image</button>
+<label for="location">Place or facility</label>
+<input id="location" required maxlength="120" placeholder="Describe the place">
+<label for="date">Observation date</label>
+<input id="date" type="date" required>
+<div id="project-fields">
+</div>
+<label for="notes">Additional notes (optional)</label>
+<textarea id="notes" rows="3" maxlength="1500">
 </textarea>
-<button class="button full" type="submit" disabled>Review on this page →</button>
-<p class="small">Preview only · no account · no submission</p>
+<p class="small">Verification: unverified browser preview. This will not add a map pin.</p>
+<button class="button full" type="submit" disabled>Review local preview →</button>
 </form>
-<div id="capture-review" class="review" hidden tabindex="-1">
-<p class="eyebrow">YOUR UNSAVED PREVIEW</p>
-<h2>Your observation, at a glance.</h2>
+<section id="capture-review" class="review" tabindex="-1" hidden>
+<p class="eyebrow">UNSAVED / UNVERIFIED</p>
+<h2>Your local preview</h2>
+<p>Nothing has been uploaded, saved or submitted to Anole or Houston 311.</p>
 <dl id="review-content">
 </dl>
-<p>Not saved or shared. A future version could attach a photo, a map pin and a dated community check.</p>
-<button id="edit-preview" class="button" type="button">← Keep editing</button>
-</div>
+<button id="edit-preview" class="button" type="button">Edit preview</button>
+</section>
 <noscript>
-<p>Review needs JavaScript. These fields are a mockup and cannot submit data.</p>
+<p>Enable JavaScript to preview a note and image. This form cannot submit data.</p>
 </noscript>
 </div>
 </section>
@@ -89,12 +85,12 @@
 <footer>
 <a class="brand" href="index.html">anole ▪</a>
 <p>Notice your neighbourhood.<br>
-<small>A community observation concept for Houston Hackathon 2026.</small>
+<small>A community observation concept · Houston 2026</small>
 </p>
 <div>
-<a href="contact.html">Official help &amp; prototype notes ↗</a>
+<a href="contact.html">Official help &amp; prototype notes</a>
 <p class="small">For emergencies, call <a href="tel:911">911</a>. Anole is not an emergency service.</p>
-<a class="small" href="LICENSE.txt">MIT licence · © 2026 Johann (Hein) Ries</a>
+<a href="LICENSE.txt">MIT licence · © 2026 Johann (Hein) Ries</a>
 </div>
 </footer>
 </body>
