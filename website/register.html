@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f8f4e9">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Register a topic · Anole</title>
+<link rel="icon" href="assets/anole.svg">
+<link rel="stylesheet" href="styles.css">
+<script src="register.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+<a class="brand" href="index.html">
+<img src="assets/anole.svg" alt="" width="56" height="45">anole ▪</a>
+<nav aria-label="Main navigation">
+<a href="index.html">Home</a>
+<a href="examples.html">Example Pages</a>
+<a href="questionnaire.html">Capture</a>
+<a href="how-to.html">How to start</a>
+<a href="register.html" aria-current="page">Register topic</a>
+<a href="explore.html">Master Map</a>
+<a href="about.html">The idea</a>
+</nav>
+</header>
+<main id="main">
+<section class="wrap section capture-layout">
+<div class="capture-intro">
+<p class="eyebrow">REGISTER A TOPIC / CONCEPT PREVIEW</p>
+<h1 class="page-title">Start with<br>a shared question.</h1>
+<p class="lead">Give your community topic a name, a brief and its own colours.</p>
+<p class="notice"><strong>This is a local preview.</strong> Nothing is submitted, registered, published or saved. Reloading clears your changes. No account is created.</p>
+<img class="capture-anole" src="assets/anole.svg" alt="Bole, the curious brown anole">
+<a class="text-link" href="how-to.html">← How to start</a>
+</div>
+<div class="capture-panel">
+<form id="register-form">
+<label for="topic">Topic name</label>
+<input id="topic" maxlength="100" required placeholder="For example, shady places to sit">
+<label for="brief">Brief</label>
+<textarea id="brief" rows="4" maxlength="1200" required placeholder="What would you like your community to notice, and why?"></textarea>
+<label for="scheme">Colour scheme</label>
+<select id="scheme">
+<option value="wildlife">Leaf green &amp; cream</option>
+<option value="heat">Ochre &amp; cream</option>
+<option value="maintenance">Terracotta &amp; cream</option>
+<option value="accessibility">Blue &amp; cream</option>
+</select>
+<div id="scheme-preview" class="topic-swatch wildlife"><span aria-hidden="true">●</span> Your topic’s colour palette</div>
+<fieldset class="topic-fields">
+<legend>What should neighbours record?</legend>
+<p class="small">Every observation would include a place, date and verification status. Choose the additional fields for your topic.</p>
+<label><input type="checkbox" name="fields" value="Photo" checked> Photo</label>
+<label><input type="checkbox" name="fields" value="Observed features or conditions" checked> Observed features or conditions</label>
+<label><input type="checkbox" name="fields" value="Barriers or issues"> Barriers or issues</label>
+<label><input type="checkbox" name="fields" value="Species as reported by the observer"> Species as reported by the observer</label>
+<label><input type="checkbox" name="fields" value="Additional notes" checked> Additional notes</label>
+</fieldset>
+<label for="custom-field">Another question to ask (optional)</label>
+<input id="custom-field" maxlength="160" placeholder="For example, was there seating in the shade?">
+<button class="button full" type="submit" disabled>Preview topic →</button>
+</form>
+<section id="topic-review" class="review" tabindex="-1" hidden>
+<p class="eyebrow">LOCAL PREVIEW / NOT REGISTERED</p>
+<h2>Your topic preview</h2>
+<article id="topic-card" class="project-tile wildlife">
+<h3 id="preview-topic"></h3>
+<p id="preview-brief"></p>
+<span class="badge">Concept preview · unpublished</span>
+</article>
+<dl id="topic-summary"></dl>
+<p>Nothing has been submitted or saved. Creating a live topic, collecting observations and sharing a project QR code are future capabilities.</p>
+<button id="edit-topic" class="button" type="button">Edit topic</button>
+</section>
+<noscript><p>Enable JavaScript to preview a topic. This form cannot submit data.</p></noscript>
+</div>
+</section>
+</main>
+<footer>
+<a class="brand" href="index.html">anole ▪</a>
+<p>Notice your neighbourhood.<br>
+<small>A community observation concept · Houston 2026</small>
+</p>
+<div>
+<a href="contact.html">Official help &amp; prototype notes</a>
+<p class="small">For emergencies, call <a href="tel:911">911</a>. Anole is not an emergency service.</p>
+<a href="LICENSE.txt">MIT licence · © 2026 Johann (Hein) Ries</a>
+</div>
+</footer>
+</body>
+</html>

@@ -348,3 +348,23 @@ button:disabled{opacity:.6;cursor:not-allowed}
 @media(max-width:850px){.project-grid{grid-template-columns:1fr}.walkthrough{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.header nav{width:100%;gap:2px}.header nav a{font-size:12px;padding:10px 9px}.project-tile{padding:22px}.tile-bottom{gap:12px}.qr{width:112px;flex-basis:112px}.tile-bottom .button{padding:12px;font-size:13px}.walkthrough,.sample-grid{grid-template-columns:1fr}.phone-content .interactive-map{height:280px}.phone-page .header{flex-wrap:nowrap}.phone-page .header .brand{font-size:27px}.phone-content .page-title{font-size:2.4rem}}
 @media(max-width:370px){.tile-bottom{flex-wrap:wrap}.header nav{justify-content:flex-start}.project-tile h2{font-size:29px}}
+
+/* A continuous sequence keeps every step connected at every screen width. */
+.connected-steps { grid-template-columns: minmax(0, 1fr); gap: 0; max-width: 860px; }
+.connected-steps .step { display: grid; grid-template-columns: 110px minmax(0, 1fr); column-gap: 28px; }
+.connected-steps .walk-icon { grid-row: 1 / 4; margin: 0; }
+.connected-steps .step > span { margin-bottom: 8px; }
+.connected-steps h2 { margin-bottom: 12px; }
+.step-arrow { text-align: center; color: var(--green); font-size: 38px; line-height: 1; padding: 10px; }
+.topic-fields { margin: 24px 0; padding: 18px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.topic-fields legend { padding-inline: 6px; font-size: 14px; font-weight: bold; }
+.topic-fields label { display: flex; gap: 12px; align-items: center; margin: 8px 0; min-height: 36px; font-size: 14px; }
+.topic-fields input { width: 19px; height: 19px; flex: 0 0 19px; accent-color: var(--green); }
+.topic-swatch { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 16px; border-left: 5px solid var(--accent); border-radius: 6px; background: var(--tint); color: var(--accent); font-weight: bold; font-size: 14px; }
+#topic-card { margin-bottom: 24px; overflow-wrap: anywhere; }
+#preview-topic { color: var(--accent); font-size: 26px; }
+#preview-brief { white-space: pre-wrap; }
+@media (max-width: 600px) {
+  .connected-steps .step { display: block; }
+  .connected-steps .walk-icon { width: 90px; height: 90px; margin-bottom: 20px; }
+}
